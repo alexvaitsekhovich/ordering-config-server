@@ -11,7 +11,7 @@
 
     <groupId>com.alexvait</groupId>
     <artifactId>ordering-config-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>config-server</name>
     <description>Spring configuration server</description>
