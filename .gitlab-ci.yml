@@ -1,10 +1,10 @@
 stages:
-  - build_and_deploy
+  - deploy
 
-build a jar and deploy to docker hub:
-  stage: build_and_deploy
+push to docker:
+  stage: deploy
   image: openjdk:12-alpine
   script:
-    - ./mvnw clean package -Dmaven.test.skip=true docker:build docker:push
+    - ./mvnw clean compile jib:build -Djib.to.auth.username=alexvaitsekhovich -Djib.to.auth.password="${DOCKERHUB_PASSWORD}"
   only:
     - master
