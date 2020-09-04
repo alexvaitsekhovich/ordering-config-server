@@ -1,19 +1,10 @@
-variables:
-  CI_REGISTRY_IMAGE: "alexvaitsekhovich/ordering-config-server"
-
 stages:
   - deploy
 
 push to docker:
   stage: deploy
-  image: docker:latest
-  services:
-    - docker:19.03.11-dind
-  before_script:
-    - echo $CI_BUILD_TOKEN | docker login -u alexvaitsekhovich --password-stdin "${DOCKERHUB_PASSWORD}"
+  image: openjdk:12-alpine
   script:
-    - docker build --pull --tag "$CI_REGISTRY_IMAGE:$CI_PIPELINE_IID" .
-    - docker push "$CI_REGISTRY_IMAGE"
+    - ./mvnw clean compile jib:build -Djib.to.auth.username=alexvaitsekhovich -Djib.to.auth.password="${DOCKERHUB_PASSWORD}"
   only:
     - master
-
